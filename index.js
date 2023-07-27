@@ -1,5 +1,24 @@
 import inquirer from 'inquirer';
 
+// makes svg
+class Svg{
+    constructor(){
+        this.textElement = ''
+        this.shapeElement = ''
+    }
+    render(){
+        return `<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="300" height="200">${this.shapeElement}${this.textElement}</svg>`
+    }
+    setTextElement(text,color){
+        this.textElement = `<text x="150" y="125" font-size="60" text-anchor="middle" fill="${color}">${text}</text>`
+    }
+    setShapeElement(shape){
+        this.shapeElement = shape.render()
+    };
+};
+
+var svgString = "";
+
 // prompts user questions and stores "answers"
 function userQuestions() {
     inquirer
@@ -44,7 +63,8 @@ function userQuestions() {
 function makeShape(answers) {
     // defaults
     var filename = "generatedLogo";
-    let user_shape
+    let user_shape;
+    var svg = new Svg();
     // user values
     let user_text = answers.text;
     let user_fontColor = answers["text-color"];
@@ -69,14 +89,25 @@ function makeShape(answers) {
     };
     // sets color of the shape
     user_shape.setColor(user_shapeColor);
-    console.log("Success")
+    // sets the text and color 
+    svg.setTextElement(user_text, user_fontColor);
+    // sets the shape
+	svg.setShapeElement(user_shape);
+	svgString = svg.render();
+    FileWrite();
 };
+
+function FileWrite() {
+    console.log("writing file");
+    console.log("Displaying shape:\n\n" + svgString);
+}
+
 
 // runs this function first
 userQuestions();
 
 
-
+// shape class
 // makes the shape
 class Shape {
     constructor() {
