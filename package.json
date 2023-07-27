@@ -1,0 +1,12 @@
+{
+    "dependencies": {
+        "inquirer": "^9.2.8"
+    },
+    "type": "module",
+    "scripts": {
+        "test": "jest"
+    },
+    "devDependencies": {
+        "jest": "^29.6.1"
+    }
+}
