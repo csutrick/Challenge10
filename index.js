@@ -136,7 +136,7 @@ function makeShape(answers) {
 
 function fileWrite() {
     console.log("writing file");
-    var filename = "generatedLogo.svg";
+    var filename = "logo.svg";
     fs.writeFile(filename, svgString, function (err) {
         if (err) {
             return console.log(err);
