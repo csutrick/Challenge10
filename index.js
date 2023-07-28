@@ -1,3 +1,4 @@
+import fs from 'fs';
 import inquirer from 'inquirer';
 
 // makes svg
@@ -62,7 +63,6 @@ function userQuestions() {
 // gets properties from user prompts and builds shape
 function makeShape(answers) {
     // defaults
-    var filename = "generatedLogo";
     let user_shape;
     var svg = new Svg();
     // user values
@@ -94,12 +94,20 @@ function makeShape(answers) {
     // sets the shape
 	svg.setShapeElement(user_shape);
 	svgString = svg.render();
-    FileWrite();
+    fileWrite();
 };
 
-function FileWrite() {
+
+function fileWrite() {
     console.log("writing file");
-    console.log("Displaying shape:\n\n" + svgString);
+    var filename = "generatedLogo.svg";
+
+    fs.writeFile(filename, svgString, function (err) {
+        if (err) {
+            return console.log(err);
+        }
+        console.log("logo generated!");
+    });
 }
 
 
